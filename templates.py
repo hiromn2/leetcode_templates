@@ -56,7 +56,7 @@ def fn(arr):
     
   return prefix
 
-#WAKARANAI
+#EFFICIENT STRING BUILDING
 # arr is a list of characters
 def fn(arr):
   ans = []
@@ -65,4 +65,44 @@ def fn(arr):
     
   return "".join(ans)
 
+# Linked list: fast and slow pointer
 
+def fn(head):
+    slow = head
+    fast = head
+    ans = 0
+
+    while fast and fast.next:
+        # do logic
+        slow = slow.next
+        fast = fast.next.next
+    
+    return ans
+
+
+# Reversing a linked list
+def fn(head):
+  curr = head
+  prev = None
+  while curr:
+    next_node = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next_node
+  return prev
+
+# Find numbers of subarrays that fit exactly into criteria
+from collections import defaultdict
+
+def fn(arr, k):
+  counts = defaultdict(int)
+  counts[0] = 1
+  ans = curr = 0
+
+  for num in arr:
+    # do logic to change curr
+    ans += counts[curr - k]
+    counts[curr] +=  1
+    return ans
+
+#
