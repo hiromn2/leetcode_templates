@@ -91,7 +91,7 @@ def fn(head):
     curr = next_node
   return prev
 
-# Find numbers of subarrays that fit exactly into criteria
+# Find number of subarrays that fit exactly into criteria
 from collections import defaultdict
 
 def fn(arr, k):
@@ -105,4 +105,350 @@ def fn(arr, k):
     counts[curr] +=  1
     return ans
 
-#
+# Monotonic increasing stack
+# The same logic can be applied to maintain a monotonic queue.
+def fn(array):
+    stack = []
+    ans = 0
+  
+    for num in arr:
+      while stack and stack[-1] > num:
+          #do logic
+          stack.pop()
+    return ans
+
+# Binary tree: DFS (recursive)
+def dfs(root):
+    if not root:
+        return
+    
+    ans = 0
+
+    # do logic
+    dfs(root.left)
+    dfs(root.right)
+    return ans
+
+
+# WAKARANAI
+# Binary tree: DFS (iterative)
+  def dfs(root):
+    stack = [root]
+    ans = 0
+
+    while stack:
+        node = stack.pop()
+        # do logic
+        if node.left:
+            stack.append(node.left)
+        if node.right:
+            stack.append(node.right)
+
+    return ans
+
+
+
+#Binary tree: BFS
+from collections import deque
+
+def fn(root):
+    queue = deque([root])
+    ans = 0
+
+    while queue:
+        current_length = len(queue)
+        # do logic for current level
+
+        for _ in range(current_length):
+            node = queue.popleft()
+            # do logic
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+    return ans
+
+
+#Graph: DFS (recursive)
+#For the graph templates, assume the nodes are numbered from 0 to n - 1 and the graph is given as an adjacency list. 
+#Depending on the problem, you may need to convert the input into an equivalent adjacency list before using the templates.
+
+def fn(graph):
+    def dfs(node):
+        ans = 0
+        # do some logic
+        for neighbor in graph[node]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                ans += dfs(neighbor)
+        
+        return ans
+
+    seen = {START_NODE}
+    return dfs(START_NODE)
+
+
+#Graph: DFS (iterative)
+def fn(graph):
+    stack = [START_NODE]
+    seen = {START_NODE}
+    ans = 0
+
+    while stack:
+        node = stack.pop()
+        # do some logic
+        for neighbor in graph[node]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                stack.append(neighbor)
+    
+    return ans
+
+
+
+#Graph: BFS
+
+from collections import deque
+
+def fn(graph):
+    queue = deque([START_NODE])
+    seen = {START_NODE}
+    ans = 0
+
+    while queue:
+        node = queue.popleft()
+        # do some logic
+        for neighbor in graph[node]:
+            if neighbor not in seen:
+                seen.add(neighbor)
+                queue.append(neighbor)
+    
+    return ans
+
+
+
+
+# Find top k elements with heap
+
+
+
+import heapq
+
+def fn(arr, k):
+    heap = []
+    for num in arr:
+        # do some logic to push onto heap according to problem's criteria
+        heapq.heappush(heap, (CRITERIA, num))
+        if len(heap) > k:
+            heapq.heappop(heap)
+    
+    return [num for num in heap]
+
+
+
+
+
+
+
+#Binary Search
+
+def fn(arr, target):
+    left = 0
+    right = len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            # do something
+            return
+        if arr[mid] > target:
+            right = mid - 1
+        else:
+            left = mid + 1
+    
+    # left is the insertion point
+    return left
+
+
+
+
+#Binary search: duplicate elements, left-most insertion point
+def fn(arr, target):
+    left = 0
+    right = len(arr)
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] >= target:
+            right = mid
+        else:
+            left = mid + 1
+
+    return left
+
+# Binary search: duplicate elements, right-most insertion point
+def fn(arr, target):
+    left = 0
+    right = len(arr)
+    while left < right:
+        mid = (left + right) // 2
+        if arr[mid] > target:
+            right = mid
+        else:
+            left = mid + 1
+
+    return left
+
+
+# Binary search: for greedy problems
+
+# If looking for a minimum:
+def fn(arr):
+    def check(x):
+        # this function is implemented depending on the problem
+        return BOOLEAN
+
+    left = MINIMUM_POSSIBLE_ANSWER
+    right = MAXIMUM_POSSIBLE_ANSWER
+    while left <= right:
+        mid = (left + right) // 2
+        if check(mid):
+            right = mid - 1
+        else:
+            left = mid + 1
+    
+    return left
+#If looking for a maximum:
+def fn(arr):
+    def check(x):
+        # this function is implemented depending on the problem
+        return BOOLEAN
+
+    left = MINIMUM_POSSIBLE_ANSWER
+    right = MAXIMUM_POSSIBLE_ANSWER
+    while left <= right:
+        mid = (left + right) // 2
+        if check(mid):
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return right
+
+
+
+#Backtracking
+def backtrack(curr, OTHER_ARGUMENTS...):
+    if (BASE_CASE):
+        # modify the answer
+        return
+    
+    ans = 0
+    for (ITERATE_OVER_INPUT):
+        # modify the current state
+        ans += backtrack(curr, OTHER_ARGUMENTS...)
+        # undo the modification of the current state
+    
+    return ans
+
+
+# Dynamic programming: top-down memoization
+def fn(arr):
+    def dp(STATE):
+        if BASE_CASE:
+            return 0
+        
+        if STATE in memo:
+            return memo[STATE]
+        
+        ans = RECURRENCE_RELATION(STATE)
+        memo[STATE] = ans
+        return ans
+
+    memo = {}
+    return dp(STATE_FOR_WHOLE_INPUT)
+
+#To convert a top-down solution to a bottom-up one:
+
+Initialize an array 
+dp
+dp that is sized according to the state variables. For example, let's say the input to the problem was an array 
+nums
+nums and an integer 
+k
+k that represents the maximum number of actions allowed. Your array 
+dp
+dp would be 2D with one dimension of length 
+nums.length
+nums.length and the other of length 
+k
+k. In the top-down approach, we had a function dp. We want these two to be equivalent. For example, the value of dp(4, 6) can now be found in dp[4][6].
+
+Set your base cases, same as the ones you are using in your top-down function. In the example we just looked at, we had dp(0) = dp(1) = 0. We can initialize our dp array values to 0 to implicitly set this base case. As you'll see soon, other problems will have more complicated base cases.
+
+Write a for-loop(s) that iterate over your state variables. If you have multiple state variables, you will need nested for-loops. These loops should start iterating from the base cases and end at the answer state.
+
+Now, each iteration of the inner-most loop represents a given state, and is equivalent to a function call to the same state in top-down. Copy-paste the logic from your function into the for-loop and change the function calls to accessing your array. All 
+dp(...)
+dp(...) changes into 
+dp[...]
+dp[...].
+
+We're done! 
+dp
+dp is now an array populated with the answer to the original problem for all possible states. Return the answer to the original problem, by changing 
+return dp(...)
+return dp(...) to 
+return dp[...]
+return dp[...].
+
+
+
+
+
+#Build a trie
+# note: using a class is only necessary if you want to store data at each node.
+# otherwise, you can implement a trie using only hash maps.
+class TrieNode:
+    def __init__(self):
+        # you can store data at nodes if you wish
+        self.data = None
+        self.children = {}
+
+def fn(words):
+    root = TrieNode()
+    for word in words:
+        curr = root
+        for c in word:
+            if c not in curr.children:
+                curr.children[c] = TrieNode()
+            curr = curr.children[c]
+        # at this point, you have a full word at curr
+        # you can perform more logic here to give curr an attribute if you want
+    
+    return root
+
+
+
+# Dijkstra's algorithm
+from math import inf
+from heapq import *
+
+distances = [inf] * n
+distances[source] = 0
+heap = [(0, source)]
+
+while heap:
+    curr_dist, node = heappop(heap)
+    if curr_dist > distances[node]:
+        continue
+    
+    for nei, weight in graph[node]:
+        dist = curr_dist + weight
+        if dist < distances[nei]:
+            distances[nei] = dist
+            heappush(heap, (dist, nei))
+
+
+
+
+
